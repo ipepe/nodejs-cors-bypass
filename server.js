@@ -7,13 +7,16 @@ var mmdbreader = require('maxmind-db-reader');
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
+//openshift is serving node behind proxy
+app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP );
+
 //load database
 var geodataCity = mmdbreader.openSync('./GeoLite2-City.mmdb');
 
 //api statistic counter, for now until server restart...
 var apiHitCounter = 0;
 
-// app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP );
+
 app.get('/*', function (req, res) {
 	var api = {
 		api_name:'api.iPePe.pl WebAPI for Web analysis and statistics',
