@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-geodata-analitics-api",
+  "version": "0.0.1",
+  "description": "look in README.MD",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ipepe/nodejs-geodata-analitics-api.git"
+  },
+  "author": "Patryk Ptasiński",
+  "license": "Apache Lincense 2.0",
+  "bugs": {
+    "url": "https://github.com/ipepe/nodejs-geodata-analitics-api/issues"
+  },
+  "homepage": "https://github.com/ipepe/nodejs-geodata-analitics-api",
+  "dependencies": {
+    "express": "4.11.2",
+    "maxmind-db-reader": "0.2.0"
+  }
+}
