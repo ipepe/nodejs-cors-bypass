@@ -16,8 +16,7 @@ var geodataCity = mmdbreader.openSync('./GeoLite2-City.mmdb');
 //api statistic counter, for now until server restart...
 var apiHitCounter = 0;
 
-
-app.get('/*', function (req, res) {
+function createApiResponse(req){
 	var api = {
 		api_name:'api.iPePe.pl WebAPI for Web analysis and statistics',
 		api_version:'0.0.1',
@@ -38,9 +37,27 @@ app.get('/*', function (req, res) {
 		db_unix_datetime:1424310803236
 	};
 	api.result.geodata.result = geodataCity.getGeoDataSync(api.result.ip);
+	return JSON.stringify(api);
+}
 
+app.get('/', function (req, res) {
+	var response = {usage:{variable:"/var=variableName",json:"/api.json",callback:'/callback=functionName'}}
 	res.contentType('application/json');
-	res.send(JSON.stringify(api));
-})
+	res.send(JSON.stringify(response));
+});
+
+app.get('/api.json', function (req, res) {
+	res.contentType('application/json');
+	res.send(createApiResponse(req));
+});
+
+app.get('/var=*', function (req, res) {
+	res.contentType('application/json');
+	res.send('var ' + req.params['0'] + ' = ' + createApiResponse(req) );
+});
+app.get('/callback=*', function (req, res) {
+	res.contentType('application/json');
+	res.send( req.params['0'] + '(' + createApiResponse(req) + ');' );
+});
 
 var server = app.listen( server_port, server_ip_address );
