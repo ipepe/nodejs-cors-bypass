@@ -1,3 +1,6 @@
+//nodejs-geodata-analitics-api
+//v.0.1.0
+
 //dependencies
 var express = require('express');
 var app = express();
@@ -14,16 +17,17 @@ app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP );
 var geodataCity = mmdbreader.openSync('./GeoLite2-City.mmdb');
 
 //api statistic counter, for now until server restart...
-var apiHitCounter = 0;
+var apiHitCounter = {json:0, variable: 0, callback:0};
 
-function createApiResponse(req){
+function createApiResponse(req, api_type){
 	var api = {
 		api_name:'api.iPePe.pl WebAPI for Web analysis and statistics',
 		api_version:'0.0.1',
 		api_github:'https://github.com/ipepe/nodejs-geodata-analitics-api',
-		api_hit_count: apiHitCounter++,
+		api_hit_count: apiHitCounter,
 		result: {}
 	};
+	api.api_hit_count[api_type]++;
 
 	api.result.ip = req.ip;
 	api.result.ips = req.ips;
@@ -48,16 +52,16 @@ app.get('/', function (req, res) {
 
 app.get('/api.json', function (req, res) {
 	res.contentType('application/json');
-	res.send(createApiResponse(req));
+	res.send(createApiResponse(req, 'json'));
 });
 
 app.get('/var=*', function (req, res) {
 	res.contentType('application/json');
-	res.send('var ' + req.params['0'] + ' = ' + createApiResponse(req) );
+	res.send('var ' + req.params['0'] + ' = ' + createApiResponse(req, 'variable') );
 });
 app.get('/callback=*', function (req, res) {
 	res.contentType('application/json');
-	res.send( req.params['0'] + '(' + createApiResponse(req) + ');' );
+	res.send( req.params['0'] + '(' + createApiResponse(req, 'callback') + ');' );
 });
 
 var server = app.listen( server_port, server_ip_address );
