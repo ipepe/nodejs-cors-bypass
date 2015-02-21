@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ipepe/nodejs-geodata-analitics-api",
   "dependencies": {
+    "cors": "^2.5.3",
     "express": "4.11.2",
     "maxmind-db-reader": "0.2.0"
   }
