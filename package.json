@@ -1,6 +1,6 @@
 {
   "name": "nodejs-geodata-analitics-api",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "look in README.MD",
   "main": "server.js",
   "scripts": {

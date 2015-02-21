@@ -1,5 +1,5 @@
 //nodejs-geodata-analitics-api
-var this_api_version = '0.1.3';
+var this_api_version = '0.1.4';
 var this_api_name = 'api.iPePe.pl WebAPI for WebClient analysis';
 var this_api_github = 'https://github.com/ipepe/nodejs-geodata-analitics-api';
 
@@ -54,19 +54,22 @@ var my_api_info = {
 
 //========== APP CODE
 function createApiResponse(req, api_type){
-	var api_response = my_api_info;
+	var api_response = JSON.parse( JSON.stringify( my_api_info ) );
 	apiHitCounter[api_type]++;
 
 	api_response.ipepe = {
 		result:{
 			client_ip: req.ip,
 			client_proxy_chain_ips: req.ips,
-			client_useragent: req.headers['user-agent'],
+			client_user_agent: req.headers['user-agent'],
 			client_language: req.headers['accept-language']
 		}
 	};
 	if( req.headers.referrer || req.headers.referer ){
-		api_response.result.ipepe.client_referer = req.headers.referrer || req.headers.referer;
+		api_response.ipepe.client_referer = req.headers.referrer || req.headers.referer;
+	};
+	if( req.headers['origin'] ){
+		api_response.ipepe.client_origin = req.headers['origin'];
 	};
 
 	api_response.geodata = geodata_info;
@@ -76,9 +79,9 @@ function createApiResponse(req, api_type){
 }
 
 app.get('/', function (req, res) {
-	var api_response = my_api_info;
+	var api_response = JSON.parse( JSON.stringify( my_api_info ) );
 	apiHitCounter['usage']++;
-	
+
 	api_response.usage = {
 		variable:"/var=variableName",
 		json:"/api.json",
