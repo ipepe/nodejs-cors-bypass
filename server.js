@@ -40,22 +40,24 @@ var geodata_info = {
 // ========== MY APP VARIABLES
 //api statistic counter, for now until server restart...
 var apiHitCounter = {
+	usage:0,
 	json:0,
 	variable: 0,
 	callback:0
 };
+var my_api_info = {
+	api_name: this_api_name,
+	api_version: this_api_version,
+	api_github: this_api_github,
+	api_hit_count: apiHitCounter,
+};
 
 //========== APP CODE
 function createApiResponse(req, api_type){
-	var api = {
-		api_name: this_api_name,
-		api_version: this_api_version,
-		api_github: this_api_github,
-		api_hit_count: apiHitCounter,
-	};
-	api.api_hit_count[api_type]++;
+	var api_response = my_api_info;
+	api_response.api_hit_count[api_type]++;
 
-	api.ipepe = {
+	api_response.ipepe = {
 		result:{
 			client_ip: req.ip,
 			client_proxy_chain_ips: req.ips,
@@ -64,27 +66,26 @@ function createApiResponse(req, api_type){
 		}
 	};
 	if( req.headers.referrer || req.headers.referer ){
-		api.result.ipepe.client_referer = req.headers.referrer || req.headers.referer;
+		api_response.result.ipepe.client_referer = req.headers.referrer || req.headers.referer;
 	};
 
-	api.geodata = geodata_info;
+	api_response.geodata = geodata_info;
 
-	api.geodata.result = geodataCity.getGeoDataSync(req.ip);
-	return JSON.stringify(api);
+	api_response.geodata.result = geodataCity.getGeoDataSync(req.ip);
+	return JSON.stringify(api_response);
 }
 
 app.get('/', function (req, res) {
-	var response = {
-		api_name: this_api_name,
-		api_version: this_api_version,
-		api_github: this_api_github,
-		usage:{
-			variable:"/var=variableName",
-			json:"/api.json",
-			callback:'/callback=functionName'
-		}
-	};
-	res.send(JSON.stringify(response));
+	var api_response = my_api_info;
+	api_response.api_hit_count['usage']++;
+	
+	api_response.usage = {
+		variable:"/var=variableName",
+		json:"/api.json",
+		callback:'/callback=functionName'
+	}
+
+	res.send(JSON.stringify(api_response));
 });
 
 app.get('/api.json', function (req, res) {
