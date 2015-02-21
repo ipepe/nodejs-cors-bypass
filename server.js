@@ -55,7 +55,7 @@ var my_api_info = {
 //========== APP CODE
 function createApiResponse(req, api_type){
 	var api_response = my_api_info;
-	api_response.api_hit_count[api_type]++;
+	apiHitCounter[api_type]++;
 
 	api_response.ipepe = {
 		result:{
@@ -77,7 +77,7 @@ function createApiResponse(req, api_type){
 
 app.get('/', function (req, res) {
 	var api_response = my_api_info;
-	api_response.api_hit_count['usage']++;
+	apiHitCounter['usage']++;
 	
 	api_response.usage = {
 		variable:"/var=variableName",
