@@ -52,23 +52,24 @@ function createApiResponse(req, api_type){
 		api_version: this_api_version,
 		api_github: this_api_github,
 		api_hit_count: apiHitCounter,
-		result: {}
 	};
 	api.api_hit_count[api_type]++;
 
-	api.result.ipepe = {
-		client_ip: req.ip,
-		client_proxy_chain_ips: req.ips,
-		client_useragent: req.headers['user-agent'],
-		client_language: req.headers['accept-language']
+	api.ipepe = {
+		result:{
+			client_ip: req.ip,
+			client_proxy_chain_ips: req.ips,
+			client_useragent: req.headers['user-agent'],
+			client_language: req.headers['accept-language']
+		}
 	};
 	if( req.headers.referrer || req.headers.referer ){
 		api.result.ipepe.client_referer = req.headers.referrer || req.headers.referer;
 	};
-	
-	api.result.geodata = geodata_info;
 
-	api.result.geodata.result = geodataCity.getGeoDataSync(api.result.ipepe.client_ip);
+	api.geodata = geodata_info;
+
+	api.geodata.result = geodataCity.getGeoDataSync(req.ip);
 	return JSON.stringify(api);
 }
 
