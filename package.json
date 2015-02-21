@@ -1,6 +1,6 @@
 {
   "name": "nodejs-geodata-analitics-api",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "look in README.MD",
   "main": "server.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/ipepe/nodejs-geodata-analitics-api",
   "dependencies": {
-    "cors": "^2.5.3",
+    "cors": "2.5.3",
     "express": "4.11.2",
     "maxmind-db-reader": "0.2.0"
   }

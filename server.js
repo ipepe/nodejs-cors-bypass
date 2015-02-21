@@ -1,5 +1,5 @@
 //nodejs-geodata-analitics-api
-var this_api_version = '0.1.2';
+var this_api_version = '0.1.3';
 var this_api_name = 'api.iPePe.pl WebAPI for WebClient analysis';
 var this_api_github = 'https://github.com/ipepe/nodejs-geodata-analitics-api';
 
@@ -68,7 +68,7 @@ function createApiResponse(req, api_type){
 	
 	api.result.geodata = geodata_info;
 
-	api.result.geodata.result = geodataCity.getGeoDataSync(api.result.ip);
+	api.result.geodata.result = geodataCity.getGeoDataSync(api.result.ipepe.client_ip);
 	return JSON.stringify(api);
 }
 
