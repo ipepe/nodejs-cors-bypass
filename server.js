@@ -1,4 +1,4 @@
-//nodejs-geodata-analitics-api
+// nodejs-geodata-analitics-api
 var this_api_version = '0.1.4';
 var this_api_name = 'api.iPePe.pl WebAPI for WebClient analysis';
 var this_api_github = 'https://github.com/ipepe/nodejs-geodata-analitics-api';
@@ -11,34 +11,34 @@ var cors = require('cors');
 var app = express();
 
 //========== CONFIGURATION
-//this api is hosted at openshift.com
+// this api is hosted at openshift.com
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 // ========== SETUP EXPRESS
-//openshift is serving node behind proxy
+// openshift is serving node behind proxy
 app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP );
 
 // cors setup
 app.use( cors() );
 
-//json contentType
+// json contentType
 app.use(function(req, res, next) {
 	res.contentType('application/json');
 	next();
 });
 
 //========== MAXMIND DATABASE SETUP
-//load database
+// load database
 var geodataCity = mmdbreader.openSync('./GeoLite2-City.mmdb');
 var geodata_info = { 
-	info:'This product includes GeoLite2 data created by MaxMind, available from http://www.maxmind.com',
-	db_datetime:'2015-02-19T01:53:23.236Z',
-	db_unix_datetime:1424310803236
+	info: 'This product includes GeoLite2 data created by MaxMind, available from http://www.maxmind.com',
+	db_datetime: '2015-02-19T01:53:23.236Z',
+	db_unix_datetime: 1424310803236
 };
 
 // ========== MY APP VARIABLES
-//api statistic counter, for now until server restart...
+// api statistic counter, for now until server restart...
 var apiHitCounter = {
 	usage:0,
 	json:0,
@@ -50,6 +50,9 @@ var my_api_info = {
 	api_version: this_api_version,
 	api_github: this_api_github,
 	api_hit_count: apiHitCounter,
+	info: {
+		geodata: geodata_info
+	}
 };
 
 //========== APP CODE
