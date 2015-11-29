@@ -24,9 +24,6 @@ else
   app.set('trust proxy', true)
 
 app.use( cors() )
-app.use (req, res, next) ->
-  res.contentType('application/json')
-  next()
 
 
 # ========== MAXMIND DATABASE SETUP
@@ -65,12 +62,13 @@ my_api_info = JSON.stringify({
 createApiResponse = (req) =>
   ip_address = req.ip
   ip_address = ip_address.split(":")[0] if ip_address
+  ips = (req.ips.map (ip) -> ip.split(':')[0])
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:
       direct_client_ip: req?.connection?.remoteAddress
       client_ip: ip_address || null,
-      client_proxy_chain_ips: req.ips.map (ip) -> ip.split(':')[0] ,
+      client_proxy_chain_ips: ips,
       server_unix_time: Date.now(),
       server_iso_time: new Date().toISOString(),
       headers: req.headers,
@@ -78,6 +76,7 @@ createApiResponse = (req) =>
 
 
 app.get '/', (req, res) ->
+  res.contentType('application/json')
   api_response = JSON.parse my_api_info
   api_response.usage =
     variable:"/var=variableName",
@@ -86,12 +85,15 @@ app.get '/', (req, res) ->
   res.send(JSON.stringify(api_response))
 
 app.get '/*.json', (req, res) ->
+  res.contentType('application/json')
   res.send createApiResponse req
 
 app.get '/var=*', (req, res) ->
+  res.contentType('application/javascript')
   res.send('var ' + req.params['0'] + ' = ' + createApiResponse(req) )
 
 app.get '/callback=*', (req, res) ->
+  res.contentType('application/javascript')
   res.send( req.params['0'] + '(' + createApiResponse(req, 'callback') + ');')
 
 console.log('starting server...', server_ip_address, server_port)
