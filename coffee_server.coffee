@@ -21,7 +21,7 @@ server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 if process.env.OPENSHIFT_NODEJS_IP
   app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP )
 else
-  app.set('trust proxy', 'loopback')
+  app.set('trust proxy', true)
 
 app.use( cors() )
 app.use (req, res, next) ->
