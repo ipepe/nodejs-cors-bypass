@@ -13,7 +13,7 @@ mmdbreader = require('maxmind-db-reader')
 cors = require('cors')
 
 # ========== CONFIGURATION
-server_port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080
+server_port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000
 server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 # ========== SETUP EXPRESS
