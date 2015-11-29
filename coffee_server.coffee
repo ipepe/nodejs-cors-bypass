@@ -28,6 +28,7 @@ detectIsAzure = ->
   false
 
 if detectIsAzure()
+  console.log('detected azure!!!')
   app.set('trust proxy')
 
 app.use( cors() )
