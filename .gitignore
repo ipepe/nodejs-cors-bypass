@@ -2,3 +2,5 @@ ab_benchmark*
 test*
 *.html
 .DS_Store
+/.idea
+/node_modules
