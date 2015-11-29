@@ -21,7 +21,7 @@ server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 if process.env.OPENSHIFT_NODEJS_IP
   app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP )
 else
-  app.set('trust proxy')
+  app.set('trust proxy', 'loopback')
 
 app.use( cors() )
 app.use (req, res, next) ->
@@ -66,7 +66,7 @@ createApiResponse = (req) =>
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:
-      client_ip: req.ip,
+      client_ip: req.ip || null,
       client_proxy_chain_ips: req.ips,
       server_unix_time: Date.now(),
       server_iso_time: new Date().toISOString(),
