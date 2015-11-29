@@ -21,6 +21,15 @@ server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 if process.env.OPENSHIFT_NODEJS_IP
   app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP )
 
+detectIsAzure = ->
+  for key in process.env
+    return true if key.toLowerCase().indexOf('azure') > -1
+    return true if process.env[key].toLowerCase().indexOf('azure') > -1
+  false
+
+if detectIsAzure()
+  app.set('trust proxy')
+
 app.use( cors() )
 app.use (req, res, next) ->
   res.contentType('application/json')
@@ -59,7 +68,7 @@ my_api_info = JSON.stringify({
 
 #========== APP CODE
 createApiResponse = (req) =>
-  console.log("request ip", req.ip, req.ips)
+  console.log("request ip", req, req.ip, req.ips)
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:

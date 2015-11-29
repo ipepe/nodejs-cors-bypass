@@ -1,6 +1,6 @@
 {
   "name": "nodejs-geodata-analitics-api",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "look in README.MD",
   "main": "server.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/ipepe/nodejs-geodata-analitics-api.git"
   },
   "author": "Patryk Ptasiński",
-  "license": "Apache Lincense 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/ipepe/nodejs-geodata-analitics-api/issues"
   },
