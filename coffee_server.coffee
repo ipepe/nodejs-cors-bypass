@@ -20,15 +20,7 @@ server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 # openshift is serving node behind proxy
 if process.env.OPENSHIFT_NODEJS_IP
   app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP )
-
-detectIsAzure = ->
-  for key in process.env
-    return true if key.toLowerCase().indexOf('azure') > -1
-    return true if process.env[key].toLowerCase().indexOf('azure') > -1
-  false
-
-if detectIsAzure()
-  console.log('detected azure!!!')
+else
   app.set('trust proxy')
 
 app.use( cors() )
@@ -69,7 +61,6 @@ my_api_info = JSON.stringify({
 
 #========== APP CODE
 createApiResponse = (req) =>
-  console.log("request ip", req, req.ip, req.ips)
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:
