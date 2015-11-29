@@ -59,6 +59,7 @@ my_api_info = JSON.stringify({
 
 #========== APP CODE
 createApiResponse = (req) =>
+  console.log("request ip", req.ip, req.ips)
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:
