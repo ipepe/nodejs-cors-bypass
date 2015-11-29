@@ -69,12 +69,12 @@ createApiResponse = (req) =>
     info: JSON.parse(my_api_info),
     result:
       direct_client_ip: req?.connection?.remoteAddress
-      client_ip: req.ip || null,
+      client_ip: ip_address || null,
       client_proxy_chain_ips: req.ips,
       server_unix_time: Date.now(),
       server_iso_time: new Date().toISOString(),
       headers: req.headers,
-      geodata: get_geodata_info(req.ip),
+      geodata: get_geodata_info(ip_address),
 
 
 app.get '/', (req, res) ->
