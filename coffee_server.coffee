@@ -41,7 +41,6 @@ geodata_cache = {}
 
 get_geodata_info = (ip_address)->
   if ip_address
-    ip_address = ip_address.split(":")[0] if ip_address.indexOf(":") > -1
     if geodata_cache[ip_address]
       geodata_cache[ip_address]
     else
@@ -64,6 +63,8 @@ my_api_info = JSON.stringify({
 
 #========== APP CODE
 createApiResponse = (req) =>
+  ip_address = req.ip
+  ip_address = ip_address.split(":")[0] if ip_address && ip_address.indexOf(":") > -1
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:
