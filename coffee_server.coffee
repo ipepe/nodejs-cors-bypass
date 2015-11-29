@@ -62,9 +62,7 @@ my_api_info = JSON.stringify({
   api_name: API.name,
   api_version: API.version,
   api_git_repo_url: API.github,
-  info: {
-    geodata: geodata_info
-  }
+  geodata: geodata_info
 })
 
 
