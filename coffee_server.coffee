@@ -42,6 +42,8 @@ get_formatted_ip_address_info = (ip_address)->
     formatted_result = result.location
     formatted_result.country_code = result?.country?.iso_code
     formatted_result.country_name = result?.country?.names?.en
+    formatted_result.ip_address = ip_address
+    formatted_result
   else
     null
 
