@@ -64,13 +64,13 @@ my_api_info = JSON.stringify({
 #========== APP CODE
 createApiResponse = (req) =>
   ip_address = req.ip
-  ip_address = ip_address.split(":")[0] if ip_address && ip_address.indexOf(":") > -1
+  ip_address = ip_address.split(":")[0] if ip_address
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:
       direct_client_ip: req?.connection?.remoteAddress
       client_ip: ip_address || null,
-      client_proxy_chain_ips: req.ips,
+      client_proxy_chain_ips: req.ips.map (ip) -> ip.split(':')[0] ,
       server_unix_time: Date.now(),
       server_iso_time: new Date().toISOString(),
       headers: req.headers,
