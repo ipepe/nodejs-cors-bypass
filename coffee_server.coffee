@@ -41,6 +41,7 @@ geodata_cache = {}
 
 get_geodata_info = (ip_address)->
   if ip_address
+    ip_address = ip_address.split(":")[0] if ip_address.indexOf(":") > -1
     if geodata_cache[ip_address]
       geodata_cache[ip_address]
     else
