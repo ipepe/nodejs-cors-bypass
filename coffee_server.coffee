@@ -66,6 +66,7 @@ createApiResponse = (req) =>
   JSON.stringify
     info: JSON.parse(my_api_info),
     result:
+      direct_client_ip: req?.connection?.remoteAddress
       client_ip: req.ip || null,
       client_proxy_chain_ips: req.ips,
       server_unix_time: Date.now(),
