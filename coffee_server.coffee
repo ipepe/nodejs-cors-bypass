@@ -40,13 +40,15 @@ geodata_info = {
 geodata_cache = {}
 
 get_geodata_info = (ip_address)->
-  if geodata_cache[ip_address]
-    geodata_cache[ip_address]
+  if ip_address
+    if geodata_cache[ip_address]
+      geodata_cache[ip_address]
+    else
+      result = geodataCity.getGeoDataSync(ip_address)
+      geodata_cache[ip_address] = result
+      result
   else
-    result = geodataCity.getGeoDataSync(ip_address)
-    geodata_cache[ip_address] = result
-    result
-
+    null
 
 my_api_info = JSON.stringify({
   api_name: API.name,
