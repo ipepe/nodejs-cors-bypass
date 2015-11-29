@@ -20,7 +20,7 @@ server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 # openshift is serving node behind proxy
 if process.env.OPENSHIFT_NODEJS_IP
   app.set('trust proxy', process.env.OPENSHIFT_NODEJS_IP )
-else
+else if process.env.NODE_ENV == 'production'
   app.set('trust proxy', true)
 
 app.use( cors() )
@@ -36,12 +36,21 @@ geodata_info = {
 }
 geodata_cache = {}
 
+get_formatted_ip_address_info = (ip_address)->
+  result = geodataCity.getGeoDataSync(ip_address)
+  if result
+    formatted_result = result.location
+    formatted_result.country_code = result?.country?.iso_code
+    formatted_result.country_name = result?.country?.names?.en
+  else
+    null
+
 get_geodata_info = (ip_address)->
   if ip_address
     if geodata_cache[ip_address]
       geodata_cache[ip_address]
     else
-      result = geodataCity.getGeoDataSync(ip_address)
+      result = get_formatted_ip_address_info(ip_address)
       geodata_cache[ip_address] = result
       result
   else
