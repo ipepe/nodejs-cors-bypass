@@ -1,6 +1,6 @@
 {
-  "name": "nodejs-geodata-analitics-api",
-  "version": "0.2.0",
+  "name": "nodejs-cors-bypass",
+  "version": "0.1.0",
   "description": "look in README.MD",
   "main": "server.js",
   "engines": {
@@ -11,18 +11,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ipepe/nodejs-geodata-analitics-api.git"
+    "url": "https://github.com/ipepe/nodejs-cors-bypass.git"
   },
   "author": "Patryk Ptasiński",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ipepe/nodejs-geodata-analitics-api/issues"
+    "url": "https://github.com/ipepe/nodejs-cors-bypass/issues"
   },
-  "homepage": "https://github.com/ipepe/nodejs-geodata-analitics-api",
+  "homepage": "https://github.com/ipepe/nodejs-cors-bypass",
   "dependencies": {
     "coffee-script": "1.10.0",
     "cors": "2.5.3",
     "express": "4.11.2",
-    "maxmind-db-reader": "0.2.0"
+    "request": "^2.72.0"
   }
 }
