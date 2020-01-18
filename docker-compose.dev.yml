@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  server:
+    build: .
+    environment:
+      API_KEY: dev
+    ports:
+      - 3000:3000
+
+# docker-compose -f docker-compose.dev.yml up --build

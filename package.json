@@ -20,9 +20,8 @@
   },
   "homepage": "https://github.com/ipepe/nodejs-cors-bypass",
   "dependencies": {
-    "coffee-script": "1.10.0",
-    "cors": "2.5.3",
-    "express": "4.11.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "request": "^2.72.0"
   }
 }
