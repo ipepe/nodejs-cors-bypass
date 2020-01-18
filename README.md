@@ -1,6 +1,3 @@
-# nodejs-geodata-analitics-api
-My free geodata analitics api server based on node.js
-JSON API for analysis of browser request information
+# nodejs-cors-bypass
 
-# MaxData info
-This product includes GeoLite2 data created by MaxMind, available from http://www.maxmind.com
+This is simple node server with purpose of sending requests to non-CORS enabled servers
