@@ -4,4 +4,6 @@ COPY . .
 
 RUN npm install
 
+ENV PORT=80
+
 CMD ["node", "server.js"]
