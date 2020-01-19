@@ -5,8 +5,7 @@ var request = require('request');
 
 // ========== CONFIGURATION
 var API_KEY = process.env.API_KEY || 'dev';
-var PORT = process.env.PORT || 3000;
-var IP_ADDRESS = '127.0.0.1';
+var PORT = process.env.PORT || 4000;
 
 // ========== SETUP EXPRESS
 // openshift is serving node behind proxy
@@ -40,5 +39,6 @@ app.get('/*', function(req, res) {
 });
 
 // ========== App Start
-console.log('starting server...', PORT, IP_ADDRESS, API_KEY);
-var server = app.listen(PORT, IP_ADDRESS);
+console.log('starting server...', PORT, API_KEY);
+var server = app.listen(PORT);
+console.log('server started');

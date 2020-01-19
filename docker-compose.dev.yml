@@ -4,7 +4,8 @@ services:
     build: .
     environment:
       API_KEY: dev
+      PORT: 4000
     ports:
-      - 3000:3000
+      - 4000:4000
 
 # docker-compose -f docker-compose.dev.yml up --build
